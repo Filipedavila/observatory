@@ -115,8 +115,8 @@ const headerStats = {
 
         {/* Top 5 Good and Bad Practices */}
         <div className="d-flex my-6 top5_best_good">
-          <Top5_Practices data={data.topBestPractices} title={t('HOME.summary.best_practices_title')} icon="AMA-Check-Line" />
-          <Top5_Practices data={data.topErrors} title={t('HOME.summary.errors_title')} icon="AMA-Wrong-Line" />
+          <Top5_Practices data={data.rulesSummary.topBestPractices} title={t('HOME.summary.best_practices_title')} icon="AMA-Check-Line" />
+          <Top5_Practices data={data.rulesSummary.topErrors} title={t('HOME.summary.errors_title')} icon="AMA-Wrong-Line" />
         </div>
       </div>
 
@@ -125,12 +125,12 @@ const headerStats = {
           {/* Declarations data */}
           <h2 className="bold">{t('NUMBERS.declaration.title')}</h2>
           <p className="ama-typography-body-large">{t('NUMBERS.declaration.paragraph')}</p>
-          <AchievementPerType data={data.declarations} config={declarationConfig} />
+          <AchievementPerType data={data.conformanceSummary.declarations} config={declarationConfig} />
 
           {/* Badges data */}
           <h2 className="bold">{t('NUMBERS.badge.title')}</h2>
           <p className="ama-typography-body-large">{t('NUMBERS.badge.paragraph')}</p>
-          <AchievementPerType data={data.badges} config={badgeConfig} />
+          <AchievementPerType data={data.conformanceSummary.badges} config={badgeConfig} />
 
           <div className="tabs-grid my-6">
             <ObservatoryInfoTabs />

@@ -12,6 +12,16 @@ export interface BadgeSummary {
   currentYear: BadgeMetrics;
 }
 
+export interface RulesSummary {
+  topBestPractices: AuditItemDirectory[];
+  topErrors: AuditItemDirectory[];
+}
+
+export interface ConformanceSummary {
+  declarations: DeclarationSummary;
+  badges: BadgeSummary;
+}
+
 export interface GlobalStatistics {
   score: number;
   directoriesCount: number;
@@ -19,11 +29,9 @@ export interface GlobalStatistics {
   entitiesCount: number;
   pagesCount: number;
   pagesWithoutErrorsCount: number;
-  recentPageDate: string; 
+  recentPageDate: string;
   oldestPageDate: string;
   topWebsites: WebsiteRank[];
-  topBestPractices: AuditItemDirectory[];
-  topErrors: AuditItemDirectory[];
-  declarations: DeclarationSummary;
-  badges: BadgeSummary;
+  rulesSummary: RulesSummary;
+  conformanceSummary: ConformanceSummary;
 }
