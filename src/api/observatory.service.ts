@@ -1,5 +1,5 @@
 import { api } from './client';
-import dataJSON from '@/utils/data.json';
+import dataJSON from '@/mocks/global.json';
 import type { 
   DirectoriesStats, 
   DirectoryDetails, 
