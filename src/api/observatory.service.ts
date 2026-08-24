@@ -37,7 +37,7 @@ export const observatoryService = {
     if (!useAPI) {
       throw new Error('Local fallback not implemented for directories statistics');
     }
-    const { data } = await api.get<ObservatoryApiResponse<DirectoriesStats>>('/observatory/directories/statistics');
+    const { data } = await api.get<ObservatoryApiResponse<DirectoriesStats>>('/observatory/directories');
     return data.data;
   },
 
@@ -48,7 +48,7 @@ export const observatoryService = {
     const { data } = await api.get<ObservatoryApiResponse<DirectoriesStats>>(`/observatory/directories/${directoryId}/statistics`);
     return data.data;
   },
-
+/*
   async getDirectoryDetails(directoryId: number): Promise<DirectoryDetails> {
     if (!useAPI) {
       throw new Error(`Local fallback not implemented for directory details ID: ${directoryId}`);
@@ -56,7 +56,7 @@ export const observatoryService = {
     const { data } = await api.get<ObservatoryApiResponse<DirectoryDetails>>(`/observatory/directories/${directoryId}`);
     return data.data;
   },
-
+*/
   async getDirectoryWebsites(directoryId: number): Promise<WebsiteRankingDetailed[]> {
     if (!useAPI) {
       throw new Error(`Local fallback not implemented for directory websites ID: ${directoryId}`);

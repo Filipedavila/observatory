@@ -29,6 +29,7 @@ export interface DirectoryDetails {
 }
 
 export interface DirectoriesStats {
+  name: string;
   score: number;
   directoriesCount: number;
   websitesCount: number;
@@ -36,6 +37,8 @@ export interface DirectoriesStats {
   pagesCount: number;
   recentPageDate: string; 
   oldestPageDate: string;
+  topDirectories: DirectorySummary[];
+
 }
 
 export interface WebsiteRank {
