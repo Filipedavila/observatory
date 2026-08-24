@@ -1,7 +1,7 @@
 import './styles.css';
 
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import {  Link, Navigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ThemeContext } from '@/context/ThemeContext';
@@ -16,25 +16,24 @@ import type {  WebsiteRankingDetailed } from '@/types';
 
 export default function Directory() {
   const { t } = useTranslation();
-  const location = useLocation();
 
   const { theme } = useContext(ThemeContext)!;
   const mainContentDirectory = theme === 'light' ? '' : 'main_content_directory';
+  
+  
+const { directoryId: directoryIdParam } = useParams<{
+    directoryId: string;
+  }>();
 
-  // Navigation Parameters — manual parsing (not useParams) because the
-  // Website route reuses ":id" twice (/directories/:id/:id), which would
-  // otherwise collide in react-router's params object.
-  const splitLocation = location.pathname.split('/');
-  while (splitLocation.length && splitLocation[splitLocation.length - 1] === '') {
-    splitLocation.pop();
+  const directoryId = Number(directoryIdParam);
+ 
+  if (!directoryId || Number.isNaN(directoryId)) {
+    return <Navigate to={pathURL} replace />;
   }
-  const id = Number(splitLocation[splitLocation.length - 1]) || null;
-  if (!id) {
-    return <Link to={pathURL} />;
-  }
+ 
 
-  const { data: directory, isLoading: loading, isError: error, error: errorDetails } = useDirectoryStatistics(id);
-  const {data: websiteList, isLoading: loadingWebsites, isError: errorWebsites, error: errorWebsitesDetails} = useDirectoryWebsites(id);
+  const { data: directory, isLoading: loading, isError: error, error: errorDetails } = useDirectoryStatistics(directoryId);
+  const {data: websiteList, isLoading: loadingWebsites, isError: errorWebsites, error: errorWebsitesDetails} = useDirectoryWebsites(directoryId);
 
   const [websitesListState, setWebsitesList] = useState<WebsiteRankingDetailed[]>([]);
   useEffect(() => {
@@ -42,7 +41,7 @@ export default function Directory() {
   }, [websiteList]);
 
   const { directoriesHeaders, columnsOptions, statsTitles, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText, ariaLabels } =
-    getDirectoryTable(t, id);
+    getDirectoryTable(t, directoryId);
 
   const directoryName = directory?.name ?? '';
   
@@ -71,7 +70,6 @@ export default function Directory() {
     oldestPage: directory?.oldestPageDate ?? '', 
     recentPage: directory?.recentPageDate ?? '', 
     statsTable: [
-      directory?.directoriesCount ?? 0,
       directory?.entitiesCount ?? 0,
       directory?.websitesCount ?? 0,
       directory?.pagesCount ?? 0,

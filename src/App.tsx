@@ -24,7 +24,7 @@ export default function App() {
           <Routes>
             <Route path={`${pathURL}`} element={<Home />} />
             <Route path={`${pathURL}/directories`} element={<Directories />} />
-            <Route path={`${pathURL}/directories/:id`} element={<Directory />} />
+            <Route path={`${pathURL}/directories/:directoryId`} element={<Directory />} />
             <Route path={`${pathURL}/directories/:directoryId/website/:websiteId`} element={<Website />} />
 
             {/* Error page needs to be last */}

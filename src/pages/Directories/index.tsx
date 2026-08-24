@@ -1,7 +1,7 @@
 import './styles.css';
 
 import { useContext, useEffect, useState, type FormEvent } from 'react';
-import { useDirectoriesStatistics,useDirectoriesRank } from '@/hooks';
+import { useDirectoriesStatistics } from '@/hooks';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -21,10 +21,8 @@ export default function Directories() {
   const { theme } = useContext(ThemeContext)!;
   const mainContentDirectories = theme === 'light' ? '' : 'main_content_directories';
 
-  const { data: directoriesRank, isLoading: isLoadingRank, isError: isErrorRank, error: errorRank } = useDirectoriesRank();
   const {data: directoryStats, isLoading: isLoadingStats, isError: isErrorStats, error: errorStats} = useDirectoriesStatistics();
-  
-  console.log('directoriesRank', JSON.stringify(directoriesRank));
+
   const [search, setSearch] = useState('');
   const [otherData, setOtherData] = useState<SearchResultRow[] | null>(null);
   const [directoriesList, setDirectoriesList] = useState<DirectorySummary[]>([]);
@@ -33,30 +31,30 @@ export default function Directories() {
     getDirectoriesTable(t);
 
   useEffect(() => {
-    if (directoriesRank) {
-      setDirectoriesList(directoriesRank);
+    if (directoryStats?.topDirectories) {
+      setDirectoriesList(directoryStats.topDirectories);
     }
-  }, [directoriesRank]);
+  }, [directoryStats?.topDirectories]);
   const breadcrumbs = [{ children: <Link to={`${pathURL}`}>{t('HEADER.NAV.observatory')}</Link> }, { title: t('HEADER.NAV.directories') }];
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (directoriesRank) setOtherData(searchFuntion(search, directoriesRank as any));
+    if (directoryStats?.topDirectories) setOtherData(searchFuntion(search, directoryStats.topDirectories as any));
   };
 
-  if (isLoadingRank || isLoadingStats) {
+  if (isLoadingStats) {
     return <LoadingComponent darkTheme={theme} loadingText={t('MISC.loading')} />;
   }
 
-  if (isErrorRank || isErrorStats) {
+  if (isErrorStats) {
     return (
       <section className={`${mainContentDirectories} d-flex flex-column align-items-center py-5 welcome_section`}>
-        <h2 className="text-center w-50">{errorRank?.message || errorStats?.message}</h2>
+        <h2 className="text-center w-50">{errorStats?.message}</h2>
       </section>
     );
   }
 
-  if (!directoriesRank || !directoryStats) return null;
+  if (!directoryStats?.topDirectories || !directoryStats) return null;
   const headerStats = {
     score: directoryStats?.score ?? 0,
     oldestPage: directoryStats?.oldestPageDate ?? '', 
