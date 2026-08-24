@@ -38,8 +38,8 @@ export function Top5WebsitesTable({ mainContentHomeClass, websites, recentPage }
                   <div className="ama-typography-body top5_number text-center">{website.index}</div>
                 </td>
                 <td>
-                  <Link
-                    to={`${pathURL}/directories/${website.directoryId}/${website.id}`}
+                  <Link 
+                    to={`${pathURL}/directories/${website.directoryId}/website/${website.id}`}
                     className="top5_link ama-typography-body-large bold"
                   >
                     {website.name}
