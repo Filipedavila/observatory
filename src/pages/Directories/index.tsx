@@ -15,6 +15,7 @@ import { SearchSection } from './_components/searchSection';
 
 import { pathURL } from '@/App';
 import type { DirectorySummary } from '@/types';
+import { roundScore } from '@/util';
 
 export default function Directories() {
   const { t } = useTranslation();
@@ -56,7 +57,7 @@ export default function Directories() {
 
   if (!directoryStats?.topDirectories || !directoryStats) return null;
   const headerStats = {
-    score: directoryStats?.score ?? 0,
+    score: roundScore(directoryStats?.score) ?? 0,
     oldestPage: directoryStats?.oldestPageDate ?? '', 
     recentPage: directoryStats?.recentPageDate ?? '', 
     statsTable: [

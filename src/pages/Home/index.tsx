@@ -15,6 +15,8 @@ import { ObservatoryInfoTabs } from './_components/observatoryInfoTabs';
 import { WelcomeSection } from './_components/welcomeSection';
 import { Top5WebsitesTable } from './_components/top5WebsitesTable';
 import { CensosSection } from './_components/censosSection';
+import { getDateFormat } from '@/i18n';
+import { roundScore } from '@/util';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -74,7 +76,7 @@ const declarationConfig = {
     },
   };
 const headerStats = {
-    score: data?.score ?? 0,
+    score: roundScore(data?.score) ?? 0,
     oldestPage: data?.oldestPageDate ?? '', 
     recentPage: data?.recentPageDate ?? '', 
     statsTable: [

@@ -13,6 +13,8 @@ import { Breadcrumb, Tabs, StatisticsHeader, LoadingComponent } from 'ama-design
 
 import { pathURL } from '@/App';
 import { useWebsiteAuditReport } from '@/hooks';
+import { getDateFormat } from '@/i18n';
+import { roundScore } from '@/util';
 
 export default function Website() {
   const { t } = useTranslation();
@@ -58,7 +60,7 @@ const { directoryId: directoryIdParam, websiteId: websiteIdParam } = useParams<{
   if (!report) return null;
 
   const headerStats = {
-    score: report.score.toFixed(1),
+    score: roundScore(report.score),
     oldestPage: report.oldestPageDate,
     recentPage: report.recentPageDate,
     statsTable: [

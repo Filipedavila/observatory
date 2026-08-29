@@ -13,6 +13,7 @@ import { getDirectoryTable } from './utils';
 import { pathURL } from '@/App';
 import { useDirectoryStatistics, useDirectoryWebsites } from '@/hooks';
 import type {  WebsiteRankingDetailed } from '@/types';
+import { roundScore } from '@/util';
 
 export default function Directory() {
   const { t } = useTranslation();
@@ -66,7 +67,7 @@ const { directoryId: directoryIdParam } = useParams<{
 
   if (!directory) return null;
    const headerStats = {
-    score: directory?.score ?? 0,
+    score: roundScore(directory?.score) ?? 0,
     oldestPage: directory?.oldestPageDate ?? '', 
     recentPage: directory?.recentPageDate ?? '', 
     statsTable: [
