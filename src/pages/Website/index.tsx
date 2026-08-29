@@ -61,8 +61,8 @@ const { directoryId: directoryIdParam, websiteId: websiteIdParam } = useParams<{
 
   const headerStats = {
     score: roundScore(report.score),
-    oldestPage: report.oldestPageDate,
-    recentPage: report.recentPageDate,
+    oldestPage: getDateFormat(new Date(report?.oldestPageDate), { dateStyle: 'long' }) ?? '',
+    recentPage: getDateFormat(new Date(report?.recentPageDate), { dateStyle: 'long' }) ?? '',
     statsTable: [
       report.pageCount,
       report.pagesWithoutErrorsCount,

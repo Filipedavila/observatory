@@ -3,6 +3,7 @@ import './styles.css';
 import { useContext, useEffect, useState, type FormEvent } from 'react';
 import { useDirectoriesStatistics } from '@/hooks';
 import { useTranslation } from 'react-i18next';
+import { getDateFormat } from '@/i18n';
 import { Link } from 'react-router-dom';
 
 import { ThemeContext } from '@/context/ThemeContext';
@@ -58,8 +59,8 @@ export default function Directories() {
   if (!directoryStats?.topDirectories || !directoryStats) return null;
   const headerStats = {
     score: roundScore(directoryStats?.score) ?? 0,
-    oldestPage: directoryStats?.oldestPageDate ?? '', 
-    recentPage: directoryStats?.recentPageDate ?? '', 
+    oldestPage: getDateFormat(new Date(directoryStats?.oldestPageDate), { dateStyle: 'long' }) ?? '', 
+    recentPage: getDateFormat(new Date(directoryStats?.recentPageDate), { dateStyle: 'long' }) ?? '', 
     statsTable: [
       directoryStats?.directoriesCount ?? 0,
       directoryStats?.entitiesCount ?? 0,

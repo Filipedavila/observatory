@@ -23,7 +23,6 @@ export default function Home() {
   const { theme } = useContext(ThemeContext)!;
   const mainContentHomeClass = theme === 'light' ? '' : 'main_content_home';
   const { data, isLoading, isError, error } = useGlobalStatistics();
-  console.log('data', JSON.stringify(data));
   const statsTitles = [
     t('STATISTICS.directories'),
     t('STATISTICS.entities'),
@@ -75,10 +74,11 @@ const declarationConfig = {
       bad: t('NUMBERS.badge.bronze'),
     },
   };
-const headerStats = {
+
+  const headerStats = {
     score: roundScore(data?.score) ?? 0,
-    oldestPage: data?.oldestPageDate ?? '', 
-    recentPage: data?.recentPageDate ?? '', 
+    oldestPage: getDateFormat(new Date(data?.oldestPageDate), { dateStyle: 'long' }) ?? '', 
+    recentPage: getDateFormat(new Date(data?.recentPageDate), { dateStyle: 'long' }) ?? '', 
     statsTable: [
       data?.directoriesCount ?? 0,
       data?.entitiesCount ?? 0,

@@ -21,5 +21,21 @@ function updateMomentLocale() {
   moment.locale(i18n.language);
 }
 
+export function getDateFormat(
+  date: Date | string | number,
+  options: Intl.DateTimeFormatOptions = { dateStyle: 'short' },
+  locale?: string
+): string {
+  try {
+    const targetDate = typeof date === 'object' ? date : new Date(date);
+    const targetLocale = locale || i18n.resolvedLanguage || i18n.language || 'pt';
+
+    return new Intl.DateTimeFormat(targetLocale, options).format(targetDate);
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    return '';
+  }
+}
+
 i18n.on('languageChanged', updateMomentLocale);
 updateMomentLocale();

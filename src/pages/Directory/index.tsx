@@ -11,6 +11,7 @@ import { StatisticsHeader, SortingTable, Breadcrumb, LoadingComponent } from 'am
 import { getDirectoryTable } from './utils';
 
 import { pathURL } from '@/App';
+import { getDateFormat } from '@/i18n';
 import { useDirectoryStatistics, useDirectoryWebsites } from '@/hooks';
 import type {  WebsiteRankingDetailed } from '@/types';
 import { roundScore } from '@/util';
@@ -68,8 +69,8 @@ const { directoryId: directoryIdParam } = useParams<{
   if (!directory) return null;
    const headerStats = {
     score: roundScore(directory?.score) ?? 0,
-    oldestPage: directory?.oldestPageDate ?? '', 
-    recentPage: directory?.recentPageDate ?? '', 
+    oldestPage: getDateFormat(new Date(directory?.oldestPageDate), { dateStyle: 'long' }) ?? '', 
+    recentPage: getDateFormat(new Date(directory?.recentPageDate), { dateStyle: 'long' }) ?? '', 
     statsTable: [
       directory?.entitiesCount ?? 0,
       directory?.websitesCount ?? 0,
