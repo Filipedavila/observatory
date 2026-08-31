@@ -58,3 +58,15 @@ export interface WebsiteAuditReport {
   successDetailsTable: DetailedDataTable;
   errorsDetailsTable: DetailedDataTable;
 }
+
+
+export interface WebsiteSearchResult {
+  directoryId: number;
+  directoryName: string;
+  id: number;
+  name: string;
+  score: number;
+  nPages: number;
+  declaration: number | null;
+  stamp: number | null;
+}

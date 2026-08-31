@@ -1,4 +1,4 @@
-declare module 'ama-design-system' {
+declare module '@a12e/accessmonitor-ds' {
   import type { ChangeEvent, ReactNode } from 'react';
   import type { StatisticsObject } from '@/utils/utils';
 
@@ -68,6 +68,7 @@ export interface StatisticsHeaderProps {
   }
 
   export interface SortingTableProps<TRow = Record<string, unknown>> {
+    project?: string;
     darkTheme?: string;
     hasSort?: boolean;
     headers: TableHeader[] | TableHeader[][];
