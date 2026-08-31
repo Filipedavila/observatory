@@ -3,14 +3,14 @@
   "version": "0.2.0",
   "private": true,
   "contributors": [
-      "Filipe Dávila <57022557+Filipedavila@users.noreply.github.com>"
+    "Filipe Dávila <57022557+Filipedavila@users.noreply.github.com>"
   ],
   "type": "module",
   "dependencies": {
+    "@a12e/accessmonitor-ds": "^1.0.7",
     "@a12e/accessmonitor-rulesets": "1.1.0",
     "@tanstack/react-query": "^5.101.4",
     "@testing-library/jest-dom": "^5.17.0",
-    "ama-design-system": "^1.1.89",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3",

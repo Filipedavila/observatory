@@ -34,4 +34,7 @@ COPY .htaccess ./
 COPY --from=builder /app/build /usr/local/apache2/htdocs/observatory
 COPY --from=builder /app/.htaccess /usr/local/apache2/htdocs/observatory
 
+RUN sed -i '/LoadModule rewrite_module modules\/mod_rewrite.so/s/^#//g' /usr/local/apache2/conf/httpd.conf \
+    && sed -i '/<Directory "\/usr\/local\/apache2\/htdocs">/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /usr/local/apache2/conf/httpd.conf
+
 EXPOSE 80
