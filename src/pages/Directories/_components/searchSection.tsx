@@ -1,18 +1,19 @@
 import type { ChangeEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon, Input, SortingTable, type ColumnOption, type TableHeader } from 'ama-design-system';
-import type { SearchResultRow } from '../search';
+import { Icon, Input, SortingTable, LoadingComponent, type ColumnOption, type TableHeader } from '@a12e/accessmonitor-ds';
+import type { WebsiteSearchResult } from '@/types';
 
 interface SearchSectionProps {
   mainContentClass: string;
   theme?: string;
   search: string;
-  otherData: SearchResultRow[] | null;
+  searchResults: WebsiteSearchResult[] | null;
+  isLoadingSearch?: boolean;
   onSearchChange: (value: string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  setOtherData: (data: SearchResultRow[] | null) => void;
+  onResetSearch: () => void;
   searchTableHeaders: TableHeader[];
-  columnsOptionsSearch: Record<string, ColumnOption<SearchResultRow>>;
+  columnsOptionsSearch: Record<string, ColumnOption<WebsiteSearchResult>>;
   nameOfIcons: string[];
 }
 
@@ -20,10 +21,11 @@ export function SearchSection({
   mainContentClass,
   theme,
   search,
-  otherData,
+  searchResults,
+  isLoadingSearch,
   onSearchChange,
   onSubmit,
-  setOtherData,
+  onResetSearch,
   searchTableHeaders,
   columnsOptionsSearch,
   nameOfIcons,
@@ -31,10 +33,11 @@ export function SearchSection({
   const { t } = useTranslation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length === 0) {
-      setOtherData(null);
+    const val = e.target.value;
+    if (val.trim().length === 0) {
+      onResetSearch();
     }
-    onSearchChange(e.target.value);
+    onSearchChange(val);
   };
 
   return (
@@ -50,18 +53,29 @@ export function SearchSection({
             type="text"
             onChange={handleChange}
           />
-          <button type="submit" className="search_button ms-1" aria-label={t('DIRECTORIES.search.search')}>
+          <button 
+            type="submit" 
+            className="search_button ms-1" 
+            aria-label={t('DIRECTORIES.search.search')}
+            disabled={isLoadingSearch}
+          >
             <Icon name="AMA-Pesquisar-Line" />
           </button>
         </form>
-        {search &&
-          otherData &&
-          (otherData.length > 0 ? (
+
+        {isLoadingSearch && (
+          <div className="py-4">
+            <LoadingComponent darkTheme={theme} loadingText={t('MISC.loading')} />
+          </div>
+        )}
+
+        {!isLoadingSearch && searchResults !== null && (
+          searchResults.length > 0 ? (
             <SortingTable
+              project="/observatory/"
               headers={searchTableHeaders}
               columnsOptions={columnsOptionsSearch}
-              setDataList={setOtherData}
-              dataList={otherData}
+              dataList={searchResults}
               darkTheme={theme}
               pagination={false}
               hasSort={true}
@@ -70,7 +84,8 @@ export function SearchSection({
             />
           ) : (
             <div className="ama-typography-body-large">{t('DIRECTORIES.search.no_results')}</div>
-          ))}
+          )
+        )}
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import type { ObservatoryResult, WebsiteSummary } from '@/features/observatory';
+import type { DirectorySummary } from '@/types';
 
 export interface SearchResultRow {
   directoryName: string;
@@ -11,71 +11,60 @@ export interface SearchResultRow {
   nPages: number;
 }
 
-// Secondary search function that checks if the text matches
-// website -> the website being checked
-// text -> the text being searched
-export function _search(website: WebsiteSummary, text: string): boolean {
-  const parts = text.trim().toLowerCase().split(' ');
-  let hasText = true;
-
-  // Normalize URL by removing protocol, www, and trailing slashes
-  const normalizeUrl = (url?: string) => {
-    if (!url) return '';
-    return url
-      .replace(/^https?:\/\//, '') // Remove http:// or https://
-      .replace(/^www\./, '') // Remove www.
-      .replace(/\/$/, ''); // Remove trailing slash
-  };
-
-  const totalText = (
-    website.name +
-    ' ' +
-    website.startingUrl +
-    ' ' +
-    normalizeUrl(website.startingUrl) +
-    ' ' +
-    (website.entity ?? '')
-  )
-    .trim()
+/**
+ * Remove acentos/diacríticos e converte para minúsculas
+ */
+function sanitizeText(value: string = ''): string {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
-    .normalize('NFD');
-
-  for (const part of parts ?? []) {
-    const normalizedText = part.normalize('NFD');
-
-    if (!totalText.includes(normalizedText)) {
-      hasText = false;
-    }
-  }
-
-  return hasText;
+    .trim();
 }
 
-// Main search function that goes through the data
-// text -> the text being searched
-// dataProcess -> the observatory dataset
-export function searchFuntion(text: string, dataProcess: ObservatoryResult): SearchResultRow[] {
-  if (!text || text.trim() === '' || text.trim().length <= 2) {
+/**
+ * Pesquisa diretórios pelo termo de busca e mapeia para a estrutura de SearchResultRow
+ */
+export function searchFunction(
+  text: string,
+  directories: DirectorySummary[] = []
+): SearchResultRow[] {
+  const trimmed = text?.trim() ?? '';
+
+  if (!trimmed || trimmed.length <= 2 || !Array.isArray(directories)) {
+    return [];
+  }
+
+  // Tokeniza e sanitiza os termos de busca ignorando múltiplos espaços
+  const searchParts = sanitizeText(trimmed)
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if (searchParts.length === 0) {
     return [];
   }
 
   const searchResults: SearchResultRow[] = [];
-  dataProcess.directoriesList.forEach((directory) => {
-    dataProcess.directories[directory.id]?.websitesList.forEach((website) => {
-      if (_search(website, text)) {
-        searchResults.push({
-          directoryName: directory.name,
-          directoryId: directory.id,
-          name: website.name,
-          id: website.id,
-          declaration: website.declaration,
-          stamp: website.stamp,
-          score: website.score,
-          nPages: website.nPages,
-        });
-      }
-    });
-  });
+
+  for (const dir of directories) {
+    const dirNameSanitized = sanitizeText(dir.name);
+
+    // Valida se todas as palavras da query existem no nome do diretório
+    const matches = searchParts.every((part) => dirNameSanitized.includes(part));
+
+    if (matches) {
+      searchResults.push({
+        directoryId: dir.id,
+        directoryName: dir.name,
+        name: dir.name,
+        id: dir.id,
+        declaration: dir.declarations ?? null,
+        stamp: dir.stamps ?? null,
+        score: dir.score,
+        nPages: dir.websites ?? 0, // mapeia a contagem/websites para a linha de tabela
+      });
+    }
+  }
 
   return searchResults;
 }

@@ -1,6 +1,6 @@
 import type { TFunction } from 'i18next';
 import { Link } from 'react-router-dom';
-import type { ColumnOption, TableHeader } from 'ama-design-system';
+import type { ColumnOption, TableHeader } from '@a12e/accessmonitor-ds';
 import { pathURL } from '@/App';
 
 /** Row shape shared by the `children` link renderers below. */
@@ -57,7 +57,7 @@ export function getDirectoriesTable(t: TFunction): DirectoriesTableConfig {
       bold: false,
       decimalPlace: false,
       children: (row, data) => (
-        <Link to={`${pathURL}/directories/${row.directoryId}/${row.id}`} className="ama-typography-action-large bold">
+        <Link to={`${pathURL}/directories/${row.directoryId}/website/${row.id}`} className="ama-typography-action-large bold">
           {String(data)}
         </Link>
       ),
