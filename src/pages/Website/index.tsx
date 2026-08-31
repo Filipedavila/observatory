@@ -9,12 +9,12 @@ import { ThemeContext } from '@/context/ThemeContext';
 import { BarLineGraphTabs } from './_components/barLineGraphTabs';
 import { RadarGraph } from './_components/radarGraph';
 import { getGoodBadTabsConfig } from './_components/goodBadTabsConfig';
-import { Breadcrumb, Tabs, StatisticsHeader, LoadingComponent } from 'ama-design-system';
+import { Breadcrumb, Tabs, StatisticsHeader, LoadingComponent } from '@a12e/accessmonitor-ds';
 
 import { pathURL } from '@/App';
 import { useWebsiteAuditReport } from '@/hooks';
 import { getDateFormat } from '@/i18n';
-import { roundScore } from '@/util';
+import { formatScore } from '@/util';
 
 export default function Website() {
   const { t } = useTranslation();
@@ -60,7 +60,7 @@ const { directoryId: directoryIdParam, websiteId: websiteIdParam } = useParams<{
   if (!report) return null;
 
   const headerStats = {
-    score: roundScore(report.score),
+    score: formatScore(report.score),
     oldestPage: getDateFormat(new Date(report?.oldestPageDate), { dateStyle: 'long' }) ?? '',
     recentPage: getDateFormat(new Date(report?.recentPageDate), { dateStyle: 'long' }) ?? '',
     statsTable: [

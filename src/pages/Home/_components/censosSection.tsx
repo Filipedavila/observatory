@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'ama-design-system';
+import { Icon } from '@a12e/accessmonitor-ds';
 
 interface CensosStatProps {
   icon: string;

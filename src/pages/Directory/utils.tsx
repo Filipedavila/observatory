@@ -1,6 +1,6 @@
 import type { TFunction } from 'i18next';
 import { Link } from 'react-router-dom';
-import type { ColumnOption, TableHeader } from 'ama-design-system';
+import type { ColumnOption, TableHeader } from '@a12e/accessmonitor-ds';
 import { pathURL } from '@/App';
 
 interface LinkRow {

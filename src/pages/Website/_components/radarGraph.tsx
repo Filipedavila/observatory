@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ThemeContext } from '@/context/ThemeContext';
-import { Tabs, SortingTable } from 'ama-design-system';
+import { Tabs, SortingTable } from '@a12e/accessmonitor-ds';
 
 import { getRadarGraph, getRadarTable } from './radarGraph.utils';
 

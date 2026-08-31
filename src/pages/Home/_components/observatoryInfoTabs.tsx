@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, type ReactNode } from 'react';
 
 // Components
-import { Icon, Tabs } from 'ama-design-system';
+import { Icon, Tabs } from '@a12e/accessmonitor-ds';
 
 export function ObservatoryInfoTabs() {
   const { t } = useTranslation();

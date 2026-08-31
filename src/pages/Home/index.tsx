@@ -8,7 +8,7 @@ import { useGlobalStatistics } from '@/hooks';
 import { ComplianceStatus, BadgesCount } from '@/types';
 import type { MetricItem } from './_components/achievementPerType';
 
-import { StatisticsHeader, LoadingComponent } from 'ama-design-system';
+import { StatisticsHeader, LoadingComponent } from '@a12e/accessmonitor-ds';
 import { Top5_Practices } from './_components/top5_practices';
 import { AchievementPerType } from './_components/achievementPerType';
 import { ObservatoryInfoTabs } from './_components/observatoryInfoTabs';
@@ -16,7 +16,7 @@ import { WelcomeSection } from './_components/welcomeSection';
 import { Top5WebsitesTable } from './_components/top5WebsitesTable';
 import { CensosSection } from './_components/censosSection';
 import { getDateFormat } from '@/i18n';
-import { roundScore } from '@/util';
+import { formatScore } from '@/util';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -76,7 +76,7 @@ const declarationConfig = {
   };
 
   const headerStats = {
-    score: roundScore(data?.score) ?? 0,
+    score: formatScore(data?.score) ?? '0',
     oldestPage: getDateFormat(new Date(data?.oldestPageDate), { dateStyle: 'long' }) ?? '', 
     recentPage: getDateFormat(new Date(data?.recentPageDate), { dateStyle: 'long' }) ?? '', 
     statsTable: [

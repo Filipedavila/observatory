@@ -40,11 +40,11 @@ div#root {
 }
 
 .link_breadcrumb_container .breadcrumb .breadcrumb-item:not(:first-child) {
-    background-image: url("/public/img/chevron-right-dark.svg");
+    background-image: url("/img/chevron-right-dark.svg");
 }
 
 .link_breadcrumb_container .breadcrumbs.dark .breadcrumb .breadcrumb-item:not(:first-child) {
-    background-image: url("/public/img/chevron-right-light.svg");
+    background-image: url("/img/chevron-right-light.svg");
 }
 
 

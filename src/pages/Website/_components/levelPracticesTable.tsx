@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { SortingTable, type ColumnOption, type TableHeader } from 'ama-design-system';
+import { SortingTable, type ColumnOption, type TableHeader } from '@a12e/accessmonitor-ds';
 import type { Level } from '@/types';
 import type { LevelPracticeRow } from './goodBadTab.utils';
 

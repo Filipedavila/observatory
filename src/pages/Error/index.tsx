@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from '@/context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
-import { Icon, Button } from 'ama-design-system';
+import { Icon, Button } from '@a12e/accessmonitor-ds';
 import './styles.css';
 
 import { pathURL } from '@/App';

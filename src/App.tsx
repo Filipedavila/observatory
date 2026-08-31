@@ -1,7 +1,7 @@
 import './styles/theme.css';
 import './styles/main.css';
 import './styles/fontStyle.css';
-import 'ama-design-system/dist/index.css';
+import '@a12e/accessmonitor-ds/dist/index.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './i18n';

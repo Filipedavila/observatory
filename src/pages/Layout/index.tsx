@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect, type ReactNode } from 'react';
-import { Footer, Header } from 'ama-design-system';
+import { Footer, Header } from '@a12e/accessmonitor-ds';
 import { ThemeContext } from '@/context/ThemeContext';
 import './styles.css';
 import { useTranslation } from 'react-i18next';

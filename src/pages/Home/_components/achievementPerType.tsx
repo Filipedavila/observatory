@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'ama-design-system';
+import { Icon } from '@a12e/accessmonitor-ds';
 import { BadgeSummary, DeclarationSummary, ComplianceStatus, BadgesCount } from '@/types';
 
 export type MetricItem = ComplianceStatus | BadgesCount;

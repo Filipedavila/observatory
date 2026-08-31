@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ThemeContext } from '@/context/ThemeContext';
-import { Tabs, SortingTable } from 'ama-design-system';
+import { Tabs, SortingTable } from '@a12e/accessmonitor-ds';
 
 import { getBarLineGraph, getBarLineTable, type BarLineTableRow } from './barLineGraphTabs.utils';
 

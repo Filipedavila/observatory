@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ThemeContext } from '@/context/ThemeContext';
 
-import { StatisticsHeader, SortingTable, Breadcrumb, LoadingComponent } from 'ama-design-system';
+import { StatisticsHeader, SortingTable, Breadcrumb, LoadingComponent } from '@a12e/accessmonitor-ds';
 
 import { getDirectoryTable } from './utils';
 
@@ -14,7 +14,7 @@ import { pathURL } from '@/App';
 import { getDateFormat } from '@/i18n';
 import { useDirectoryStatistics, useDirectoryWebsites } from '@/hooks';
 import type {  WebsiteRankingDetailed } from '@/types';
-import { roundScore } from '@/util';
+import { formatScore } from '@/util';
 
 export default function Directory() {
   const { t } = useTranslation();
@@ -68,7 +68,7 @@ const { directoryId: directoryIdParam } = useParams<{
 
   if (!directory) return null;
    const headerStats = {
-    score: roundScore(directory?.score) ?? 0,
+    score: formatScore(directory?.score) ?? '0',
     oldestPage: getDateFormat(new Date(directory?.oldestPageDate), { dateStyle: 'long' }) ?? '', 
     recentPage: getDateFormat(new Date(directory?.recentPageDate), { dateStyle: 'long' }) ?? '', 
     statsTable: [
@@ -110,6 +110,7 @@ const { directoryId: directoryIdParam } = useParams<{
           <h2 className="bold m-0">{t('DIRECTORIES.table.title')}</h2>
           <p className="ama-typography-body mb-4">{t('DIRECTORY.table.subtitle') + ' ' + directoryName}</p>
           <SortingTable
+            project="/observatory/"
             darkTheme={theme}
             hasSort={true}
             headers={directoriesHeaders}

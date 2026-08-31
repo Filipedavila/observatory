@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ThemeContext } from '@/context/ThemeContext';
-import { SortingTable } from 'ama-design-system';
+import { SortingTable } from '@a12e/accessmonitor-ds';
 import type { AuditItemWebsite, DetailedDataTable, Level } from '@/types';
 
 import { TopTenTabs } from './topTenTabs';
