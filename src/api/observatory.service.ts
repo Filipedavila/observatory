@@ -6,7 +6,8 @@ import type {
   DirectorySummary, 
   GlobalStatistics, 
   WebsiteAuditReport, 
-  WebsiteRankingDetailed 
+  WebsiteRankingDetailed, 
+  WebsiteSearchResult
 } from '@/types';
 
 const useAPI = import.meta.env.VITE_API_DATA_SOURCE === 'remote';
@@ -48,15 +49,7 @@ export const observatoryService = {
     const { data } = await api.get<ObservatoryApiResponse<DirectoriesStats>>(`/observatory/directories/${directoryId}/statistics`);
     return data.data;
   },
-/*
-  async getDirectoryDetails(directoryId: number): Promise<DirectoryDetails> {
-    if (!useAPI) {
-      throw new Error(`Local fallback not implemented for directory details ID: ${directoryId}`);
-    }
-    const { data } = await api.get<ObservatoryApiResponse<DirectoryDetails>>(`/observatory/directories/${directoryId}`);
-    return data.data;
-  },
-*/
+
   async getDirectoryWebsites(directoryId: number): Promise<WebsiteRankingDetailed[]> {
     if (!useAPI) {
       throw new Error(`Local fallback not implemented for directory websites ID: ${directoryId}`);
@@ -72,4 +65,15 @@ export const observatoryService = {
     const { data } = await api.get<ObservatoryApiResponse<WebsiteAuditReport>>(`/observatory/websites/${websiteId}`);
     return data.data;
   },
+
+  async searchWebsites(query: string,signal:AbortSignal): Promise<WebsiteSearchResult[]> {
+    if (!useAPI) {
+      throw new Error(`Local fallback not implemented for website search query: ${query}`);
+    }
+    const { data } = await api.get<ObservatoryApiResponse<WebsiteSearchResult[]>>(`/observatory/websites/search`, {
+      params: { query },
+      signal,
+    });
+    return data.data;
+  }
 };
