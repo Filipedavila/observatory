@@ -35,7 +35,7 @@ const { directoryId: directoryIdParam, websiteId: websiteIdParam } = useParams<{
   }
 
   const { data: report, isLoading: loading, isError: error } = useWebsiteAuditReport(websiteId);
-
+  console.log(JSON.stringify(report));
   const statsTitles = [
     { subtitle: t('STATISTICS.pages'), subtitle2: '' },
     { subtitle: t('STATISTICS.pages_without_errors'), subtitle2: '' },

@@ -32,6 +32,7 @@ export interface GlobalStatistics {
   recentPageDate: string;
   oldestPageDate: string;
   topWebsites: WebsiteRank[];
-  rulesSummary: RulesSummary;
+  topBestPractices: AuditItemDirectory[];
+  topErrors: AuditItemDirectory[];
   conformanceSummary: ConformanceSummary;
 }

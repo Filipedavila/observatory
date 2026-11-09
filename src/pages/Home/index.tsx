@@ -117,8 +117,8 @@ const declarationConfig = {
 
         {/* Top 5 Good and Bad Practices */}
         <div className="d-flex my-6 top5_best_good">
-          <Top5_Practices data={data.rulesSummary.topBestPractices} title={t('HOME.summary.best_practices_title')} icon="AMA-Check-Line" />
-          <Top5_Practices data={data.rulesSummary.topErrors} title={t('HOME.summary.errors_title')} icon="AMA-Wrong-Line" />
+          <Top5_Practices data={data.topBestPractices} title={t('HOME.summary.best_practices_title')} icon="AMA-Check-Line" />
+          <Top5_Practices data={data.topErrors} title={t('HOME.summary.errors_title')} icon="AMA-Wrong-Line" />
         </div>
       </div>
 
