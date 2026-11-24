@@ -18,20 +18,30 @@ export interface ObservatoryApiResponse<T> {
 }
 
 export const observatoryService = {
-  async getGlobalStatistics(): Promise<GlobalStatistics> {
+  async getGlobalStatistics(): Promise<GlobalStatistics | null> {
     if (!useAPI) {
       return dataJSON as unknown as GlobalStatistics;
     }
-    const { data } = await api.get<ObservatoryApiResponse<GlobalStatistics>>('/observatory');
-    return data.data;
+    const response = await api.get<ObservatoryApiResponse<GlobalStatistics>>('/observatory');
+    const payload = response.data?.data;
+
+    if (!payload) {
+      return null;
+    }
+    return payload;
   },
 
   async getDirectoriesRank(): Promise<DirectorySummary[]> {
     if (!useAPI) {
       return dataJSON as unknown as DirectorySummary[];
     }
-    const { data } = await api.get<ObservatoryApiResponse<DirectorySummary[]>>('/observatory/directories/ranks');
-    return data.data;
+    const response = await api.get<ObservatoryApiResponse<DirectorySummary[]>>('/observatory/directories/ranks');
+    const payload = response.data?.data;
+
+    if (!payload) {
+      return [];
+    }
+    return payload;
   },
 
   async getDirectoriesStatistics(): Promise<DirectoriesStats> {

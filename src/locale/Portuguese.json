@@ -435,6 +435,7 @@
       "English": "English"
     },
     "MISC": {
+      "no_data_available": "Sem dados disponíveis",
       "skip_to_main": "Saltar para o conteúdo principal",
       "loading": "A carregar...",
       "required_field": "Este campo é <strong>obrigatório</strong>",

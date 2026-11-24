@@ -35,13 +35,19 @@ export default function Directories() {
 
   const { searchTableHeaders, columnsOptionsSearch, directoriesHeaders, columnsOptions, statsTitles, nameOfIcons, ariaLabels } =
     getDirectoriesTable(t);
-
+  
   useEffect(() => {
     if (directoryStats?.topDirectories) {
       setDirectoriesList(directoryStats.topDirectories);
     }
   }, [directoryStats?.topDirectories]);
-
+   if(!directoryStats || directoryStats.topDirectories.length === 0) {
+    return (
+      <section className={`${mainContentDirectories} d-flex flex-column align-items-center py-5 welcome_section`}>
+        <h2 className="text-center w-50">{t('MISC.no_data_available')}</h2>
+      </section>
+    );
+  }
   const breadcrumbs = [
     { children: <Link to={`${pathURL}`}>{t('HEADER.NAV.observatory')}</Link> },
     { title: t('HEADER.NAV.directories') },

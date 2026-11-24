@@ -435,6 +435,7 @@ export const enTranslation = {
     },
     MISC: {
       skip_to_main: "Skip to main content",
+      no_data_available: "No data available",
       loading: "Loading...",
       required_field: "This field is <strong>required</strong>",
       message_close: "Close",

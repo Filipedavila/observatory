@@ -42,8 +42,15 @@ export default function Home() {
     );
   }
 
-  if (!data) return null;
-const declarationConfig = {
+  if (!data) {
+    return (
+      <section className={`${mainContentHomeClass} d-flex flex-column align-items-center py-6 welcome_section`}>
+        <h2 className="text-center w-50">{t('MISC.no_data_available')}</h2>
+      </section>
+    );
+  }
+
+  const declarationConfig = {
     title: t('NUMBERS.declaration.subtitle1'),
     icon: 'AMA-Declaracao-Line',
     translationType: 'declaration' as const,
